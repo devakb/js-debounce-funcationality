@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" debounce-keyup-callback="getData" > <!-- debounce-click-callback="getData"-->
+    <br><br>
+    <table  border="1px" cellpadding="10px" cellspacing="0">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody id="table">
+
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="./debounce.js"></script>
+    <script>
+        function getData(el) {
+            let value = el.value;
+          
+            const apiUrl = "https://reqres.in/api/users";
+
+            $.get(apiUrl).then((res) => {
+
+                let data = res.data;
+                let html = "";
+                data.forEach((item) => {
+                    html += `<tr>
+                                <td>${item.first_name}</td>
+                                <td>${item.last_name}</td>
+                            </tr>`
+                })
+                $("#table").html(html);
+            })
+          }          
+    </script>
+</body>
+</html>
